@@ -53,12 +53,13 @@ public class SheetTest {
 		when(comSlot.getText()).thenReturn("#Alice");
 		
 		try{
-			sheetSpy.put("#Alice", "A1");
+			sheetSpy.set("#Alice", "A1");
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		try{
 			assertEquals(sheetSpy.getLabelText("A1"),"Alice");
+			assertEquals(sheetSpy.getText("A1"),"#Alice");
 		}catch(Exception e){
 			e.printStackTrace();
 		}
