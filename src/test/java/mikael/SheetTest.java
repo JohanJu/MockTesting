@@ -44,7 +44,7 @@ public class SheetTest {
 	Sheet sheetSpy = new Sheet();
 	
 	@Test
-	public void test() {
+	public void setTest() {
 		//sheetSpy
 		doReturn(comSlot).when(sheetSpy).createCommentSlot("#Alice");
 		
