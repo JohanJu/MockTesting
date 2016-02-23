@@ -1,4 +1,4 @@
-package mikael;
+package johan;
 
 import java.io.FileNotFoundException;
 import java.util.AbstractMap;
@@ -107,17 +107,11 @@ public class Sheet extends Observable implements Environment {
 	void put(String value, String slot) throws Exception {
 		if (!value.isEmpty()) {
 			if (value.charAt(0) == '#') {
-//				slotMap.put(slot, new CommentSlot(value));
-				slotMap.put(slot, createCommentSlot(value));
+				slotMap.put(slot, new CommentSlot(value));
 			} else {
 				slotMap.put(slot, new ExprSlot(value,this));
 			}
 		}
-	}
-	
-	
-	public CommentSlot createCommentSlot(String value){
-		return new CommentSlot(value);
 	}
 
 	
