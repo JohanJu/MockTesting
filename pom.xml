@@ -21,7 +21,6 @@
 			<version>4.12</version>
 		</dependency>
 
-
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
@@ -33,5 +32,6 @@
 			<artifactId>easymock</artifactId>
 			<version>3.4</version>
 		</dependency>
+		
 	</dependencies>
 </project>
