@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 
 
 public class MyDictionaryTest {
@@ -20,14 +21,26 @@ public class MyDictionaryTest {
 
 	
 	@Mock
-	Map<String, String> wordMap;
+	Map<String, String> wm;
+//	@Mock
+//	Poop p;
 	 
-	@InjectMocks
+//	@InjectMocks
+	@Spy
 	MyDictionary dic = new MyDictionary();
 	
 	@Test
 	public void whenUseInjectMocksAnnotation_thenCorrect() {
-	    Mockito.when(wordMap.get("aWord")).thenReturn("aMeaning");
+	    Mockito.when(wm.get("aWord")).thenReturn("aMeaning");
+//	    Mockito.when(p.writeShit()).thenReturn("poop");
+	 
+	    assertEquals("aMeaning", dic.getMeaning("aWord"));
+	}
+	@Test
+	public void spyTest() {
+	    Mockito.when(wm.get("aWord")).thenReturn("aMeaning");
+	    Mockito.when(dic.newWordMap()).thenReturn(wm);
+//	    Mockito.when(p.writeShit()).thenReturn("poop");
 	 
 	    assertEquals("aMeaning", dic.getMeaning("aWord"));
 	}

@@ -107,11 +107,17 @@ public class Sheet extends Observable implements Environment {
 	void put(String value, String slot) throws Exception {
 		if (!value.isEmpty()) {
 			if (value.charAt(0) == '#') {
-				slotMap.put(slot, new CommentSlot(value));
+//				slotMap.put(slot, new CommentSlot(value));
+				slotMap.put(slot, createCommentSlot(value));
 			} else {
 				slotMap.put(slot, new ExprSlot(value,this));
 			}
 		}
+	}
+	
+	
+	public CommentSlot createCommentSlot(String value){
+		return new CommentSlot(value);
 	}
 
 	
