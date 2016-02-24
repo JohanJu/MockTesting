@@ -103,7 +103,7 @@ public class SheetTestMockito {
 		
 	}
 	@Test
-	public void setExprInvalidTest() throws Exception{
+	public void setExprInvalidAddressTest() throws Exception{
 		
 		//---------------------------- Mocks ----------------------------
 		
@@ -112,7 +112,7 @@ public class SheetTestMockito {
 		doReturn(exprSlot).when(sheetSpyMockedMap).newExprSlot("6.0",sheetSpyMockedMap);
 
 		
-		//exprSlot - Finns med ifall den felaktigt skulle skapa ExprSlot
+		//exprSlot - These mocks exist in the case it would incorrectly create a ExprSlot
 		when(exprSlot.getLabelText()).thenReturn("6.0");
 		when(exprSlot.getText()).thenReturn("6.0");
 		when(exprSlot.value()).thenReturn(6.0);
@@ -128,6 +128,38 @@ public class SheetTestMockito {
 		//---------------------------- Tests ----------------------------
 		
 		verify(slotMap).put("A2AA2", cirSlot);
+		
+	}
+	@Test
+	public void setExprInvalidValueTest() throws Exception{
+		
+		//---------------------------- Mocks ----------------------------
+		
+		
+		//sheetSpy
+		doReturn(exprSlot).when(sheetSpyMockedMap).newExprSlot("6.0",sheetSpyMockedMap);
+
+		
+		//exprSlot - These mocks exist in the case it would incorrectly create a ExprSlot
+		when(exprSlot.getLabelText()).thenReturn("6.0");
+		when(exprSlot.getText()).thenReturn("6.0");
+		when(exprSlot.value()).thenReturn(6.0);
+		
+		
+		//-------------------------- Test Setup -------------------------
+		
+
+
+		//---------------------------- Tests ----------------------------
+		
+		try{
+			sheetSpyMockedMap.set("nmdvnsl", "A2AA2");
+			Assert.fail("Expected XLException was not thrown");
+		}catch(XLException e){
+			//Test is correct
+		}catch(Exception e){
+			Assert.fail("Other exception than XLException thrown");
+		}
 		
 	}
 	
@@ -248,7 +280,7 @@ public class SheetTestMockito {
 	
 	@Test
 	public void getLabelTextNoSlotTest(){
-		//Kolla vilken return som förväntas här.
+		// TODO Kolla vilken return som förväntas här.
 		
 		
 		//---------------------------- Mocks ----------------------------
@@ -266,7 +298,7 @@ public class SheetTestMockito {
 	
 	@Test
 	public void getLabelTextCircularTest(){
-		//Behövs denna?
+		// TODO Behövs denna?
 	}
 	
 	/*
@@ -275,7 +307,7 @@ public class SheetTestMockito {
 	
 	@Test
 	public void valueTest(){
-		//Kolla vilken return som förväntas här.
+		// TODO Kolla vilken return som förväntas här.
 		
 		
 		//---------------------------- Mocks ----------------------------
@@ -297,7 +329,7 @@ public class SheetTestMockito {
 	
 	@Test
 	public void valueNoSlotTest(){
-		//Kolla vilken return som förväntas här.
+		// TODO Kolla vilken return som förväntas här.
 		
 		
 		//---------------------------- Mocks ----------------------------
@@ -318,6 +350,124 @@ public class SheetTestMockito {
 		}
 	}
 	
+	
+	
+	/*
+	 * Tests for put
+	 */
+	
+	@Test
+	public void putCommentTest() throws Exception{
+		
+		//---------------------------- Mocks ----------------------------
+		
+		
+		//sheetSpy
+		doReturn(comSlot).when(sheetSpyMockedMap).newCommentSlot("#Alice");
+		
+		//comSlot
+		when(comSlot.getLabelText()).thenReturn("Alice");
+		when(comSlot.getText()).thenReturn("#Alice");
+		
+		
+		//-------------------------- Test Setup -------------------------
+		
+		//CommentSlot
+		sheetSpyMockedMap.put("#Alice", "A1");
+		
+		//---------------------------- Tests ----------------------------
+		
+		verify(slotMap).put("A1", comSlot);
+	}
+	
+	@Test
+	public void putExprSimpleTest() throws Exception{
+		
+		//---------------------------- Mocks ----------------------------
+		
+		
+		//sheetSpy
+		doReturn(exprSlot).when(sheetSpyMockedMap).newExprSlot("6.0",sheetSpyMockedMap);
+
+		
+		//exprSlot
+		when(exprSlot.getLabelText()).thenReturn("6.0");
+		when(exprSlot.getText()).thenReturn("6.0");
+		when(exprSlot.value()).thenReturn(6.0);
+		
+		
+		//-------------------------- Test Setup -------------------------
+
+		//ExpressionSlot
+		
+		sheetSpyMockedMap.put("6.0", "A2");	
+
+
+		//---------------------------- Tests ----------------------------
+		
+		verify(slotMap).put("A2", exprSlot);
+		
+	}
+	@Test
+	public void putExprInvalidAddressTest() throws Exception{
+		
+		//---------------------------- Mocks ----------------------------
+		
+		
+		//sheetSpy
+		doReturn(exprSlot).when(sheetSpyMockedMap).newExprSlot("6.0",sheetSpyMockedMap);
+
+		
+		//exprSlot - These mocks exist in the case it would incorrectly create a ExprSlot
+		when(exprSlot.getLabelText()).thenReturn("6.0");
+		when(exprSlot.getText()).thenReturn("6.0");
+		when(exprSlot.value()).thenReturn(6.0);
+		
+		
+		//-------------------------- Test Setup -------------------------
+
+		//ExpressionSlot
+		
+		sheetSpyMockedMap.put("6.0", "A2A22");	
+
+
+		//---------------------------- Tests ----------------------------
+		
+		verify(slotMap).put("A2AA2", cirSlot);
+		
+	}
+	@Test
+	public void putExprInvalidValueTest() throws Exception{
+		
+		//---------------------------- Mocks ----------------------------
+		
+		
+		//sheetSpy
+		doReturn(exprSlot).when(sheetSpyMockedMap).newExprSlot("6.0",sheetSpyMockedMap);
+
+		
+		//exprSlot - These mocks exist in the case it would incorrectly create a ExprSlot
+		when(exprSlot.getLabelText()).thenReturn("6.0");
+		when(exprSlot.getText()).thenReturn("6.0");
+		when(exprSlot.value()).thenReturn(6.0);
+		
+		
+		//-------------------------- Test Setup -------------------------
+		
+
+
+		//---------------------------- Tests ----------------------------
+		
+		try{
+			sheetSpyMockedMap.set("bvjksbvdjks", "A2AA2");
+			Assert.fail("Expected XLException was not thrown");
+		}catch(XLException e){
+			//Test is correct
+		}catch(Exception e){
+			Assert.fail("Other exception than XLException thrown");
+		}
+		
+	}
 	
 	
 }
