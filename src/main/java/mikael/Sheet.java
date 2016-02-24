@@ -99,6 +99,7 @@ public class Sheet extends Observable implements Environment {
 			}
 		}
 	}
+	
 	public void update() {
 		setChanged();
 		notifyObservers();
