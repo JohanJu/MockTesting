@@ -23,7 +23,7 @@ import static org.mockito.Mockito.*;
 
 import java.util.HashMap;
 
-public class SheetTest {
+public class SheetTestMockito {
 
 
 	@Before
