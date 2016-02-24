@@ -273,4 +273,51 @@ public class SheetTestMockito {
 	 * Tests for value(String)
 	 */
 	
+	@Test
+	public void valueTest(){
+		//Kolla vilken return som förväntas här.
+		
+		
+		//---------------------------- Mocks ----------------------------
+		
+		//exprSlot
+		when(exprSlot.value()).thenReturn(6.0);
+		
+		//Map
+		when(slotMap.get("A2")).thenReturn(exprSlot);
+		
+		//-------------------------- Test Setup -------------------------
+
+
+		//---------------------------- Tests ----------------------------
+		
+		assertTrue(6.0 == sheetSpyMockedMap.value("A2"));
+
+	}
+	
+	@Test
+	public void valueNoSlotTest(){
+		//Kolla vilken return som förväntas här.
+		
+		
+		//---------------------------- Mocks ----------------------------
+		
+		when(slotMap.get("A2")).thenReturn(null);
+		
+		//-------------------------- Test Setup -------------------------
+		
+		
+		//---------------------------- Tests ----------------------------
+		try{
+			sheetSpyMockedMap.value("A2");
+			Assert.fail("Expected XLException was not thrown");
+		}catch(XLException e){
+			//We are looking for XLException, test should pass here.
+		}catch(Exception e){
+			Assert.fail("Other exception than XLException thrown");
+		}
+	}
+	
+	
+	
 }
