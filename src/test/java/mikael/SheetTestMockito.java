@@ -135,28 +135,28 @@ public class SheetTestMockito {
 	 * Tests for getText()
 	 */
 	
+//	@Test
+//	public void getTextExprTest(){
+//		
+//		//---------------------------- Mocks ----------------------------
+//		
+//		when(slotMap.get("A2")).thenReturn(exprSlot);
+//		
+//		//exprSlot - Finns med ifall den felaktigt skulle skapa ExprSlot
+//		when(exprSlot.getLabelText()).thenReturn("6.0");
+//		when(exprSlot.getText()).thenReturn("6.0");
+//		when(exprSlot.value()).thenReturn(6.0);
+//		
+//		
+//		//-------------------------- Test Setup -------------------------
+//
+//
+//		//---------------------------- Tests ----------------------------
+//		
+//		assertEquals("6.0",sheetSpyMockedMap.getText("A2"));
+//	}
 	@Test
-	public void getTextExprTest(){
-		
-		//---------------------------- Mocks ----------------------------
-		
-		when(slotMap.get("A2")).thenReturn(exprSlot);
-		
-		//exprSlot - Finns med ifall den felaktigt skulle skapa ExprSlot
-		when(exprSlot.getLabelText()).thenReturn("6.0");
-		when(exprSlot.getText()).thenReturn("6.0");
-		when(exprSlot.value()).thenReturn(6.0);
-		
-		
-		//-------------------------- Test Setup -------------------------
-
-
-		//---------------------------- Tests ----------------------------
-		
-		assertEquals("6.0",sheetSpyMockedMap.getText("A2"));
-	}
-	@Test
-	public void getTextCommentTest(){
+	public void getTextTest(){
 		
 		//---------------------------- Mocks ----------------------------
 		
@@ -205,28 +205,28 @@ public class SheetTestMockito {
 	 * Tests for getLabelText()
 	 */
 	
+//	@Test
+//	public void getLabelTextExprTest() throws Exception{
+//		
+//		//---------------------------- Mocks ----------------------------
+//		
+//		when(slotMap.get("A2")).thenReturn(exprSlot);
+//		
+//		//exprSlot - Finns med ifall den felaktigt skulle skapa ExprSlot
+//		when(exprSlot.getLabelText()).thenReturn("6.0");
+//		when(exprSlot.getText()).thenReturn("6.0");
+//		when(exprSlot.value()).thenReturn(6.0);
+//		
+//		
+//		//-------------------------- Test Setup -------------------------
+//
+//
+//		//---------------------------- Tests ----------------------------
+//		
+//		assertEquals("6.0",sheetSpyMockedMap.getLabelText("A2"));
+//	}
 	@Test
-	public void getLabelTextExprTest() throws Exception{
-		
-		//---------------------------- Mocks ----------------------------
-		
-		when(slotMap.get("A2")).thenReturn(exprSlot);
-		
-		//exprSlot - Finns med ifall den felaktigt skulle skapa ExprSlot
-		when(exprSlot.getLabelText()).thenReturn("6.0");
-		when(exprSlot.getText()).thenReturn("6.0");
-		when(exprSlot.value()).thenReturn(6.0);
-		
-		
-		//-------------------------- Test Setup -------------------------
-
-
-		//---------------------------- Tests ----------------------------
-		
-		assertEquals("6.0",sheetSpyMockedMap.getLabelText("A2"));
-	}
-	@Test
-	public void getLabelTextCommentTest() throws Exception {
+	public void getLabelTextTest() throws Exception {
 		
 		//---------------------------- Mocks ----------------------------
 		
