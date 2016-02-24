@@ -117,13 +117,13 @@ public class Sheet extends Observable implements Environment {
 	}
 	
 	
-	public CommentSlot newCommentSlot(String value){
+	protected CommentSlot newCommentSlot(String value){
 		return new CommentSlot(value);
 	}
-	public ExprSlot newExprSlot(String value, Sheet sheet){
+	protected ExprSlot newExprSlot(String value, Sheet sheet){
 		return new ExprSlot(value, sheet);
 	}
-	public CircularSlot newCircularSlot(Slot slot){
+	protected CircularSlot newCircularSlot(Slot slot){
 		return new CircularSlot(slot);
 	}
 
