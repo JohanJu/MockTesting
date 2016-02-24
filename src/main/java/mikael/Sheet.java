@@ -19,7 +19,7 @@ public class Sheet extends Observable implements Environment {
 	private HashMap<String, Slot> slotMap;
 
 	public Sheet() {
-		slotMap = new HashMap<String, Slot>();
+		slotMap = newHashMap();
 	}
 
 	public void set(String value, String slot) throws Exception {
@@ -126,6 +126,9 @@ public class Sheet extends Observable implements Environment {
 	}
 	protected CircularSlot newCircularSlot(Slot slot){
 		return new CircularSlot(slot);
+	}
+	protected HashMap<String, Slot> newHashMap(){
+		return new HashMap<String, Slot>();
 	}
 
 	

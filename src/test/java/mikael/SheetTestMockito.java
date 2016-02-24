@@ -506,4 +506,58 @@ public class SheetTestMockito {
 		verify(slotMap,never()).put("",exprSlot);
 		verify(slotMap,never()).put("",comSlot);
 	}
+	
+	/*
+	 * Tests for test(Slot old, String slot)
+	 */
+	@Mock	ExprSlot exprSlot1;
+	@Mock	ExprSlot exprSlot2;
+	@Mock	ExprSlot exprSlot3;
+	@Test
+	public void testOneValueTest() throws Exception{
+		
+		//---------------------------- Mocks ----------------------------
+		
+		//exprSlot1
+		when(exprSlot1.getLabelText()).thenReturn("1.0");
+		when(exprSlot1.getText()).thenReturn("1.0");
+		when(exprSlot1.value()).thenReturn(1.0);
+		//exprSlot2
+		when(exprSlot2.getLabelText()).thenReturn("2.0");
+		when(exprSlot2.getText()).thenReturn("2.0");
+		when(exprSlot2.value()).thenReturn(2.0);
+		//exprSlot3
+		when(exprSlot3.getLabelText()).thenReturn("A1+A2");
+		when(exprSlot3.getText()).thenReturn("3.0");
+		when(exprSlot3.value()).thenReturn(3.0);
+		
+		
+		//Prepare a HashMap with some mocked elements
+		HashMap<String,Slot> hashMap = new HashMap<String,Slot>();
+		HashMap<String,Slot> hmSpy = spy(hashMap);
+		hashMap.put("A1", exprSlot1);
+		hashMap.put("A2", exprSlot2);
+		hashMap.put("A3", exprSlot3);
+		
+		
+		//sheetSpy
+		doReturn(hashMap).when(sheetSpyMockedMap).newHashMap();
+
+		
+
+		
+		
+		//-------------------------- Test Setup -------------------------
+		
+		sheetSpyMockedMap.test(exprSlot,"A3");
+
+		
+		//---------------------------- Tests ----------------------------
+		
+		verify(hmSpy,never()).put("A3",exprSlot);
+
+	}
+	//testOneChain
+	//testCircular - exception
+	
 }
