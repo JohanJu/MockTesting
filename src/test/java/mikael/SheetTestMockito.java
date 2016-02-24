@@ -242,11 +242,6 @@ public class SheetTestMockito {
 	}
 	
 	@Test
-	public void getTextCircularTest(){
-		//Behövs denna?
-	}
-	
-	@Test
 	public void getTextNoSlotTest(){
 		//Kolla vilken return som förväntas här.
 		
@@ -254,15 +249,8 @@ public class SheetTestMockito {
 		//---------------------------- Mocks ----------------------------
 		
 		when(slotMap.get("A2")).thenReturn(null);
-//		try{
 		assertEquals("",sheetSpyMockedMap.getText("A2"));
-//			Assert.fail("Expected XLException not thrown");
-//		}catch(XLException e){
-//			//This is the exception we want. Test will pass if it enters here
-//		}
-//		catch(Exception e){
-//			Assert.fail("Other exception than XLException thrown.");
-//		}
+		
 	}
 	
 	
@@ -293,8 +281,6 @@ public class SheetTestMockito {
 	
 	@Test
 	public void getLabelTextNoSlotTest(){
-		// TODO Kolla vilken return som förväntas här.
-		
 		
 		//---------------------------- Mocks ----------------------------
 		
@@ -308,27 +294,18 @@ public class SheetTestMockito {
 		assertEquals("",sheetSpyMockedMap.getText("A2"));
 
 	}
-	
-	@Test
-	public void getLabelTextCircularTest(){
-		// TODO Behövs denna?
-	}
-	
+
 	/*
 	 * Tests for value(String)
 	 */
 	
 	@Test
 	public void valueTest(){
-		// TODO Kolla vilken return som förväntas här.
-		
 		
 		//---------------------------- Mocks ----------------------------
 		
-		//exprSlot
 		when(exprSlot.value()).thenReturn(6.0);
 		
-		//Map
 		when(slotMap.get("A2")).thenReturn(exprSlot);
 		
 		//-------------------------- Test Setup -------------------------
@@ -342,8 +319,6 @@ public class SheetTestMockito {
 	
 	@Test
 	public void valueNoSlotTest(){
-		// TODO Kolla vilken return som förväntas här.
-		
 		
 		//---------------------------- Mocks ----------------------------
 		
@@ -411,7 +386,6 @@ public class SheetTestMockito {
 		
 		//-------------------------- Test Setup -------------------------
 
-		//ExpressionSlot
 		
 		sheetSpyMockedMap.put("6.0", "A2");	
 
@@ -439,7 +413,6 @@ public class SheetTestMockito {
 		
 		//-------------------------- Test Setup -------------------------
 
-		//ExpressionSlot
 		
 		sheetSpyMockedMap.put("6.0", "A2A22");	
 
@@ -473,7 +446,7 @@ public class SheetTestMockito {
 		//---------------------------- Tests ----------------------------
 		
 		try{
-			sheetSpyMockedMap.set("bvjksbvdjks", "A2");
+			sheetSpyMockedMap.put("bvjksbvdjks", "A2");
 			Assert.fail("Expected XLException was not thrown");
 		}catch(XLException e){
 			//Test is correct
