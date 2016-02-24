@@ -21,55 +21,140 @@ import org.mockito.Spy;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
+import java.util.HashMap;
+
 public class SheetTest {
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this); // Flytta till @BeforeClass?
-		
+		when(cirSlot.value()).thenThrow(new XLException("circular dependency"));
+
 	}
 	
-	@Mock	CircularSlot crSlot;
-	@Mock	ExprSlot eSlot;
+	Sheet sheet = new Sheet();
+
+	@Mock	CircularSlot cirSlot;
+	@Mock	ExprSlot exprSlot;
 	@Mock	CommentSlot comSlot;
+	@Mock 	HashMap<String, Slot> slotMap;
 	
-	@Spy	Sheet sheetSpy = new Sheet();
+	
+	Sheet sheetSpy = spy(sheet);
+	@InjectMocks
+	Sheet sheetSpyMockedMap = spy(sheet);
 	
 
-
-	public void setTest() throws Exception{
+//	@Test
+//	public void setTestComment() throws Exception{
+//		
+//		//---------------------------- Mocks ----------------------------
+//		
+//		
+//		//sheetSpy
+//		doReturn(comSlot).when(sheetSpyMockedMap).newCommentSlot("#Alice");
+//		
+//		//comSlot
+//		when(comSlot.getLabelText()).thenReturn("Alice");
+//		when(comSlot.getText()).thenReturn("#Alice");
+//		
+//		
+//		//---------------------------- Test Setup ----------------------------
+//		
+//		//CommentSlot
+//		sheetSpyMockedMap.set("#Alice", "A1");
+//		
+//		//---------------------------- Tests ----------------------------
+//		
+//		verify(slotMap).put("A1", comSlot);
+//	}
+	
+	@Test
+	public void setTestExprRegularSimple() throws Exception{
 		
 		//---------------------------- Mocks ----------------------------
 		
 		
 		//sheetSpy
-		doReturn(comSlot).when(sheetSpy).createCommentSlot("#Alice");
+		doReturn(exprSlot).when(sheetSpyMockedMap).newExprSlot("6.0",sheetSpyMockedMap);
+
 		
-		//comSlot
-		when(comSlot.getLabelText()).thenReturn("Alice");
-		when(comSlot.getText()).thenReturn("#Alice");
+		//exprSlot
+//		when(exprSlot.getLabelText()).thenReturn("Alice");
+//		when(exprSlot.getText()).thenReturn("#Alice");
+		when(exprSlot.value()).thenReturn(6.0);
 		
 		
 		//---------------------------- Test Setup ----------------------------
+
+		//ExpressionSlot
 		
-		
-		sheetSpy.set("#Alice", "A1");
-		
-		
+		sheetSpyMockedMap.set("6.0", "A2");	
+
+
 		//---------------------------- Tests ----------------------------
 		
+		verify(slotMap).put("A2", exprSlot);
 		
-		assertEquals(sheetSpy.getLabelText("A1"),"Alice");
-		assertEquals(sheetSpy.getText("A1"),"#Alice");
+	}
+	@Test
+	public void setTestExprInvalid() throws Exception{
 		
+		//---------------------------- Mocks ----------------------------
+		
+		
+		//sheetSpy
+		doReturn(exprSlot).when(sheetSpyMockedMap).newExprSlot("6.0",sheetSpyMockedMap);
+
+		
+		//exprSlot
+//		when(exprSlot.getLabelText()).thenReturn("Alice");
+//		when(exprSlot.getText()).thenReturn("#Alice");
+		when(exprSlot.value()).thenReturn(6.0);
+		
+		
+		//---------------------------- Test Setup ----------------------------
+
+		//ExpressionSlot
+		
+		sheetSpyMockedMap.set("6.0", "A2");	
+
+
+		//---------------------------- Tests ----------------------------
+		
+		verify(slotMap).put("A2", exprSlot);
+		
+	}
+	@Test
+	public void setTestCircular() throws Exception{ //INTE SÄKER PÅ CIRCULAR!
+		
+//		//---------------------------- Mocks ----------------------------
+//		
+//		
+//		//sheetSpy
+//		doReturn(exprSlot).when(sheetSpyMockedMap).newExprSlot("A3+B2",sheetSpyMockedMap);
+//		
+//		//exprSlot
+//		when(exprSlot.getLabelText()).thenReturn("Alice");
+//		when(exprSlot.getText()).thenReturn("#Alice");
+//		
+//		when(cirSlot.value()).thenThrow(new XLException("circular dependency"))
+		
+//		//---------------------------- Test Setup ----------------------------
+//
+//		//ExpressionSlot
+//		try{
+//			sheetSpyMockedMap.set("A2", "A2");	
+//			Assert.fail("Returnerade inte exception");
+//		} catch (XLException e){
+//			//Testet skall passa när vi kommer hit, därför tomt block.
+//		}
+//
+//		//---------------------------- Tests ----------------------------
+//		
+//		verify(slotMap).put("A1", comSlot);
+//		verify(slotMap).put("A1", comSlot);
 		
 	}
 

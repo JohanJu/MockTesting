@@ -24,13 +24,13 @@ public class Sheet extends Observable implements Environment {
 
 	public void set(String value, String slot) throws Exception {
 		Slot old = slotMap.get(slot);
-		slotMap.put(slot, new CircularSlot(null));
+		slotMap.put(slot, newCircularSlot(null));
 		if (!value.isEmpty()&&value.charAt(0) != '#') {
 			Expr expr = new ExprParser().build(value);
 			try {
 				expr.value(this);
 			} catch (XLException e) {
-				slotMap.put(slot, new CircularSlot(null));
+				slotMap.put(slot, newCircularSlot(null));
 				throw e;
 			}
 		}
@@ -108,16 +108,23 @@ public class Sheet extends Observable implements Environment {
 		if (!value.isEmpty()) {
 			if (value.charAt(0) == '#') {
 //				slotMap.put(slot, new CommentSlot(value));
-				slotMap.put(slot, createCommentSlot(value));
+				slotMap.put(slot, newCommentSlot(value));
 			} else {
-				slotMap.put(slot, new ExprSlot(value,this));
+//				slotMap.put(slot, new ExprSlot(value,this));
+				slotMap.put(slot, newExprSlot(value,this));
 			}
 		}
 	}
 	
 	
-	public CommentSlot createCommentSlot(String value){
+	public CommentSlot newCommentSlot(String value){
 		return new CommentSlot(value);
+	}
+	public ExprSlot newExprSlot(String value, Sheet sheet){
+		return new ExprSlot(value, sheet);
+	}
+	public CircularSlot newCircularSlot(Slot slot){
+		return new CircularSlot(slot);
 	}
 
 	
