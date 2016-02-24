@@ -26,7 +26,7 @@ public class SheetTestEasymock extends EasyMockSupport{
 	@Mock	CircularSlot cirSlot;
 	@Mock	ExprSlot exprSlot;
 	@Mock	CommentSlot comSlot;
-	@Mock   HashMap<String, Slot> slotMap;
+	@Mock(type = MockType.NICE)   HashMap<String, Slot> slotMap;
 	
 //	Sheet sheetSpy = spy(new Sheet());
 //	@InjectMocks
@@ -34,7 +34,7 @@ public class SheetTestEasymock extends EasyMockSupport{
 	
 	
 	@TestSubject
-	Sheet sheet = partialMockBuilder(Sheet.class).addMockedMethod("update").addMockedMethod("test").addMockedMethod("newCommentSlot").addMockedMethod("newCircularSlot").createNiceMock();
+	Sheet sheet = partialMockBuilder(Sheet.class).addMockedMethod("update").addMockedMethod("test").addMockedMethod("newCommentSlot").addMockedMethod("newExprSlot").addMockedMethod("newCircularSlot").createNiceMock();
 	
 	
 	@Test
@@ -52,10 +52,6 @@ public class SheetTestEasymock extends EasyMockSupport{
 		EasyMock.expect(comSlot.getText()).andReturn("#Alice");
 		
 		//-------------------------- Test Setup -------------------------
-		EasyMock.expect(slotMap.get("A1")).andReturn(null);
-		EasyMock.expect(slotMap.put("A1",cirSlot)).andReturn(null);
-		EasyMock.expect(slotMap.remove("A1")).andReturn(null);
-		EasyMock.expect(slotMap.put("A1",comSlot)).andReturn(null);
 		//CommentSlot
 //		sheetSpyMockedMap.set("#Alice", "A1");
 		replay(sheet);
