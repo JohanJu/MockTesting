@@ -42,7 +42,7 @@ public class SheetTestMockito {
 	@Mock	CommentSlot comSlot;
 	@Mock 	HashMap<String, Slot> slotMap;
 	
-	
+	Sheet sheetSpy = spy(new Sheet());
 	@InjectMocks
 	Sheet sheetSpyMockedMap = spy(new Sheet());
 	
@@ -514,7 +514,7 @@ public class SheetTestMockito {
 	@Mock	ExprSlot exprSlot2;
 	@Mock	ExprSlot exprSlot3;
 	@Test
-	public void testOneValueTest() throws Exception{
+	public void testOneValueChain() throws Exception{
 		
 		//---------------------------- Mocks ----------------------------
 		
@@ -541,15 +541,12 @@ public class SheetTestMockito {
 		
 		
 		//sheetSpy
-		doReturn(hashMap).when(sheetSpyMockedMap).newHashMap();
+		doReturn(hmSpy).when(sheetSpy).newHashMap();
 
-		
 
-		
-		
 		//-------------------------- Test Setup -------------------------
 		
-		sheetSpyMockedMap.test(exprSlot,"A3");
+		sheetSpy.test(exprSlot,"A3");
 
 		
 		//---------------------------- Tests ----------------------------
@@ -557,7 +554,50 @@ public class SheetTestMockito {
 		verify(hmSpy,never()).put("A3",exprSlot);
 
 	}
-	//testOneChain
-	//testCircular - exception
+	
+	@Test
+	public void testOneValueCircular() throws Exception{
+		
+		//---------------------------- Mocks ----------------------------
+		
+		//exprSlot1
+		when(exprSlot1.getLabelText()).thenReturn("1.0");
+		when(exprSlot1.getText()).thenReturn("1.0");
+		when(exprSlot1.value()).thenReturn(1.0);
+		//exprSlot2
+		when(exprSlot2.getLabelText()).thenReturn("2.0");
+		when(exprSlot2.getText()).thenReturn("2.0");
+		when(exprSlot2.value()).thenReturn(2.0);
+
+		
+		
+		//Prepare a HashMap with some mocked elements
+		HashMap<String,Slot> hashMap = new HashMap<String,Slot>();
+		HashMap<String,Slot> hmSpy = spy(hashMap);
+		hashMap.put("A1", exprSlot1);
+		hashMap.put("A2", exprSlot2);
+		hashMap.put("A3", cirSlot);
+		
+		
+		//sheetSpy
+		doReturn(hashMap).when(sheetSpy).newHashMap();
+
+
+		//-------------------------- Test Setup -------------------------
+		
+		sheetSpy.test(exprSlot,"A3");
+		
+		//---------------------------- Tests ----------------------------
+//		try{
+//			sheetSpyMockedMap.test(exprSlot,"A3");
+//			Assert.fail("Expected XLException was not thrown");
+//		}catch(XLException e){
+//			//Test passed
+//		}catch(Exception e){
+//			Assert.fail("Exception other that XLException was thrown");
+//		}
+		verify(hmSpy).put("A3",exprSlot);
+
+	}
 	
 }

@@ -90,6 +90,7 @@ public class Sheet extends Observable implements Environment {
 	public void test(Slot old, String slot) throws Exception {
 		Iterator<Map.Entry<String, Slot>> it = slotMap.entrySet().iterator();
 		while (it.hasNext()) {
+			System.out.println("hej");
 			Map.Entry<String, Slot> pair = it.next();
 			try {
 				pair.getValue().value();
