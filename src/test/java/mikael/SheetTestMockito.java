@@ -1,7 +1,6 @@
 package mikael;
 
 import static org.junit.Assert.*;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -15,12 +14,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-//import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.Spy;
-
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
-
 import java.util.HashMap;
 
 public class SheetTestMockito {
@@ -42,7 +38,7 @@ public class SheetTestMockito {
 	@Mock	CommentSlot comSlot;
 	@Mock 	HashMap<String, Slot> slotMap;
 	
-	Sheet sheetSpy = spy(new Sheet());
+
 	@InjectMocks
 	Sheet sheetSpyMockedMap = spy(new Sheet());
 	
@@ -180,6 +176,7 @@ public class SheetTestMockito {
 		
 		
 		//-------------------------- Test Setup -------------------------
+		
 		
 		sheetSpyMockedMap.set("", "A2");	
 
@@ -506,98 +503,4 @@ public class SheetTestMockito {
 		verify(slotMap,never()).put("",exprSlot);
 		verify(slotMap,never()).put("",comSlot);
 	}
-	
-	/*
-	 * Tests for test(Slot old, String slot)
-	 */
-	@Mock	ExprSlot exprSlot1;
-	@Mock	ExprSlot exprSlot2;
-	@Mock	ExprSlot exprSlot3;
-	@Test
-	public void testOneValueChain() throws Exception{
-		
-		//---------------------------- Mocks ----------------------------
-		
-		//exprSlot1
-		when(exprSlot1.getLabelText()).thenReturn("1.0");
-		when(exprSlot1.getText()).thenReturn("1.0");
-		when(exprSlot1.value()).thenReturn(1.0);
-		//exprSlot2
-		when(exprSlot2.getLabelText()).thenReturn("2.0");
-		when(exprSlot2.getText()).thenReturn("2.0");
-		when(exprSlot2.value()).thenReturn(2.0);
-		//exprSlot3
-		when(exprSlot3.getLabelText()).thenReturn("A1+A2");
-		when(exprSlot3.getText()).thenReturn("3.0");
-		when(exprSlot3.value()).thenReturn(3.0);
-		
-		
-		//Prepare a HashMap with some mocked elements
-		HashMap<String,Slot> hashMap = new HashMap<String,Slot>();
-		HashMap<String,Slot> hmSpy = spy(hashMap);
-		hashMap.put("A1", exprSlot1);
-		hashMap.put("A2", exprSlot2);
-		hashMap.put("A3", exprSlot3);
-		
-		
-		//sheetSpy
-		doReturn(hmSpy).when(sheetSpy).newHashMap();
-
-
-		//-------------------------- Test Setup -------------------------
-		
-		sheetSpy.test(exprSlot,"A3");
-
-		
-		//---------------------------- Tests ----------------------------
-		
-		verify(hmSpy,never()).put("A3",exprSlot);
-
-	}
-	
-	@Test
-	public void testOneValueCircular() throws Exception{
-		
-		//---------------------------- Mocks ----------------------------
-		
-		//exprSlot1
-		when(exprSlot1.getLabelText()).thenReturn("1.0");
-		when(exprSlot1.getText()).thenReturn("1.0");
-		when(exprSlot1.value()).thenReturn(1.0);
-		//exprSlot2
-		when(exprSlot2.getLabelText()).thenReturn("2.0");
-		when(exprSlot2.getText()).thenReturn("2.0");
-		when(exprSlot2.value()).thenReturn(2.0);
-
-		
-		
-		//Prepare a HashMap with some mocked elements
-		HashMap<String,Slot> hashMap = new HashMap<String,Slot>();
-		HashMap<String,Slot> hmSpy = spy(hashMap);
-		hashMap.put("A1", exprSlot1);
-		hashMap.put("A2", exprSlot2);
-		hashMap.put("A3", cirSlot);
-		
-		
-		//sheetSpy
-		doReturn(hashMap).when(sheetSpy).newHashMap();
-
-
-		//-------------------------- Test Setup -------------------------
-		
-		sheetSpy.test(exprSlot,"A3");
-		
-		//---------------------------- Tests ----------------------------
-//		try{
-//			sheetSpyMockedMap.test(exprSlot,"A3");
-//			Assert.fail("Expected XLException was not thrown");
-//		}catch(XLException e){
-//			//Test passed
-//		}catch(Exception e){
-//			Assert.fail("Exception other that XLException was thrown");
-//		}
-		verify(hmSpy).put("A3",exprSlot);
-
-	}
-	
 }

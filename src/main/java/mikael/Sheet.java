@@ -19,7 +19,7 @@ public class Sheet extends Observable implements Environment {
 	private HashMap<String, Slot> slotMap;
 
 	public Sheet() {
-		slotMap = newHashMap();
+		slotMap = new HashMap<String, Slot>();
 	}
 
 	public void set(String value, String slot) throws Exception {
@@ -90,9 +90,9 @@ public class Sheet extends Observable implements Environment {
 	public void test(Slot old, String slot) throws Exception {
 		Iterator<Map.Entry<String, Slot>> it = slotMap.entrySet().iterator();
 		while (it.hasNext()) {
-			System.out.println("hej");
 			Map.Entry<String, Slot> pair = it.next();
 			try {
+				System.out.println(pair.getValue().getLabelText());
 				pair.getValue().value();
 			} catch (XLException e) {
 				slotMap.put(slot, old);
@@ -128,9 +128,9 @@ public class Sheet extends Observable implements Environment {
 	protected CircularSlot newCircularSlot(Slot slot){
 		return new CircularSlot(slot);
 	}
-	protected HashMap<String, Slot> newHashMap(){
-		return new HashMap<String, Slot>();
-	}
+//	protected HashMap<String, Slot> newHashMap(){
+//		return new HashMap<String, Slot>();
+//	}
 
 	
 }
